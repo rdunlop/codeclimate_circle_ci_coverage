@@ -2,11 +2,11 @@ PATH
   remote: .
   specs:
     codeclimate_circle_ci_coverage (0.0.1)
-      codeclimate-test-reporter
-      simplecov
+      codeclimate-test-reporter (~> 0)
+      simplecov (~> 0)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     ast (2.2.0)
     codeclimate-test-reporter (0.5.0)
@@ -36,7 +36,7 @@ PLATFORMS
 
 DEPENDENCIES
   codeclimate_circle_ci_coverage!
-  rubocop
+  rubocop (~> 0)
 
 BUNDLED WITH
    1.11.2
