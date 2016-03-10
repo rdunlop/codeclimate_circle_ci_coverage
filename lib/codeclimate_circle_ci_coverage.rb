@@ -1,0 +1,1 @@
+require "codeclimate_coverage_parallel_circle_ci/circle"

@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'codeclimate_coverage_parallel_circle_ci'
+
+CoverageReporter.run
