@@ -15,7 +15,7 @@ This gem is that additional work.
 Add this line to your application's Gemfile:
 
 ```bash
-gem 'codeclimate_circle_ci_coverage'
+gem 'codeclimate_circle_ci_coverage', group: 'test'
 ```
 
 And then add the following to your circle.yml:
@@ -28,10 +28,9 @@ test:
 
 Add add the following to the top of your spec_helper.rb:
 ```ruby
-require 'simplecov'
-
 # run coverage when on CI
 if ENV['CI']
+  require 'simplecov'
   SimpleCov.start 'rails' do
     add_filter '/spec/'
   end
