@@ -11,6 +11,10 @@ Gem::Specification.new do |s|
     'lib/codeclimate_circle_ci_coverage.rb',
     'lib/codeclimate_circle_ci_coverage/coverage_reporter.rb',
   ]
+  s.test_files = [
+    'spec/coverage_reporter_spec.rb',
+    'spec/spec_helper.rb',
+  ]
   s.executables << 'report_coverage'
   s.homepage =
     'http://rubygems.org/gems/codeclimate_circle_ci_coverage'
@@ -19,4 +23,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'simplecov', '~> 0'
 
   s.add_development_dependency 'rubocop', '~> 0'
+  s.add_development_dependency 'rspec', '~> 3.2'
 end
