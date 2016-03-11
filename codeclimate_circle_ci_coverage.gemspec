@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'codeclimate_circle_ci_coverage'
-  s.version     = '0.0.5'
+  s.version     = '0.0.6'
   s.date        = '2016-03-08'
   s.summary     = 'CodeClimate Code Coverage reporting script for CircleCI'
   s.description = 'A set of tools to support reporting SimpleCov Coverage to CodeClimate with Parallel tests on CircleCI'
