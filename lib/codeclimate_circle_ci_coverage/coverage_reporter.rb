@@ -40,6 +40,7 @@ class CoverageReporter
     merged_result = load_and_merge_files(all_coverage_dir, final_coverage_dir)
     output_result_html(merged_result)
     upload_result_file(merged_result)
+    store_code_climate_payload(merged_result)
   end
 
   # Public: Download the .resultset.json files from each of the nodes
@@ -105,5 +106,15 @@ class CoverageReporter
     # Post merged coverage result to codeclimate
     codeclimate_formatter = CodeClimate::TestReporter::Formatter.new
     codeclimate_formatter.format(merged_result)
+  end
+
+  # Internal: Debug function, in use to try to determine why codeclimate
+  # is marking some lines of comments as "relevant" lines.
+  def store_code_climate_payload(merged_result)
+    ENV["CODECLIMATE_TO_FILE"] = "true"
+    codeclimate_formatter = CodeClimate::TestReporter::Formatter.new
+    codeclimate_formatter.format(merged_result)
+  ensure
+    ENV["CODECLIMATE_TO_FILE"] = nil
   end
 end
