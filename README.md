@@ -51,10 +51,19 @@ You can find your `CODECLIMATE_REPO_TOKEN` when logged into CodeClimate:
 
 CircleCI will now aggregate together all of your individual coverage metrics into a single file, and then upload that file to CodeClimate.
 
-Once your test suite has been run on your default branch, there will be a "Test Coverage" link appear in your CodeClimate feed, as well as on the Sidebar.
+Once your test suite has been run on the `master` branch, there will be a "Test Coverage" link appear in your CodeClimate feed, as well as on the Sidebar.
 
 **Note** CodeClimate will **only** report coverage metrics on the default branch. Thus, running this on a feature branch will not cause coverage numbers to be reported.
 
+## Configuration
+
+If your default branch is not `master`, you'll have to tell `report_coverage` the the branch name. Coverage will be reported whenever specs are run for this branch. (by default, the branch is `master`)
+
+```yml
+test:
+  post:
+    - bundle exec report_coverage --branch develop
+```
 
 ## Known Issues
 

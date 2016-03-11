@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    codeclimate_circle_ci_coverage (0.0.1)
+    codeclimate_circle_ci_coverage (0.0.3)
       codeclimate-test-reporter (~> 0)
       simplecov (~> 0)
 

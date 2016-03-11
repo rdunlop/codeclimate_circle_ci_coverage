@@ -1,6 +1,3 @@
-# This packages up the code coverage metrics and
-# sends them to CodeClimate via the CodeClimate Test Reporter Gem
-
 # from https://github.com/codeclimate/ruby-test-reporter/issues/10
 # https://gist.github.com/evanwhalen/f74879e0549b67eb17bb
 
@@ -13,8 +10,16 @@ require "codeclimate-test-reporter"
 require "simplecov"
 require 'fileutils'
 
+# This packages up the code coverage metrics from multiple servers and
+# sends them to CodeClimate via the CodeClimate Test Reporter Gem
 class CoverageReporter
-  def self.run
+  attr_reader :target_branch
+
+  def initialize(target_branch)
+    @target_branch = target_branch
+  end
+
+  def run
     branch = ENV['CIRCLE_BRANCH']
     node_index = ENV['CIRCLE_NODE_INDEX'].to_i
     node_total = ENV['CIRCLE_NODE_TOTAL'].to_i
@@ -63,8 +68,8 @@ class CoverageReporter
     html_formatter = SimpleCov::Formatter::HTMLFormatter.new
     html_formatter.format(merged_result)
 
-    # Only submit coverage to codeclimate on master branch
-    exit if branch != 'master'
+    # Only submit coverage to codeclimate on target branch
+    exit if branch != target_branch
 
     # Post merged coverage result to codeclimate
     codeclimate_formatter = CodeClimate::TestReporter::Formatter.new

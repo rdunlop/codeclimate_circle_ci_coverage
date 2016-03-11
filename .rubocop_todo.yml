@@ -26,7 +26,7 @@ Style/Documentation:
   Exclude:
     - 'spec/**/*'
     - 'test/**/*'
-    - 'lib/codeclimate_circle_ci_coverage/circle.rb'
+    - 'lib/codeclimate_circle_ci_coverage/coverage_reporter.rb'
 
 # Offense count: 5
 # Cop supports --auto-correct.

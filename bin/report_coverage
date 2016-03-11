@@ -1,5 +1,17 @@
 #!/usr/bin/env ruby
-
 require 'codeclimate_circle_ci_coverage'
+require 'optparse'
 
-CoverageReporter.run
+options = { branch: 'master' }
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: report_coverag [options]"
+
+  opts.on('-b', '--branch [branch name]', 'Branch name',
+          'Specify branch name to report coverage (default "master")') do |v|
+    options[:branch] = v
+  end
+end.parse!
+
+reporter = CoverageReporter.new(options[:branch])
+reporter.run

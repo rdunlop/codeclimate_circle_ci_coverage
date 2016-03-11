@@ -1,1 +1,1 @@
-require "codeclimate_circle_ci_coverage/circle"
+require "codeclimate_circle_ci_coverage/coverage_reporter"
