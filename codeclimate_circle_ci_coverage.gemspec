@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.files       = [
     'lib/codeclimate_circle_ci_coverage.rb',
     'lib/codeclimate_circle_ci_coverage/coverage_reporter.rb',
+    'lib/codeclimate_circle_ci_coverage/patch_simplecov.rb',
   ]
   s.test_files = [
     'spec/coverage_reporter_spec.rb',
