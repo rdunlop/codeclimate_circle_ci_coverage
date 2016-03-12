@@ -67,7 +67,7 @@ test:
 
 ## Known Issues
 
-Currently, running the same build multiple times causes the CodeCoverage numbers to fluctuate a slight amount. I haven't yet figured out whether this a result of the reporting scripts, or my test suite itself.
+There is (a bug)[https://github.com/colszowka/simplecov/pull/441] in SimpleCov which prevents results from merging cleanly. A patch has been applied to resolve this, but new versions of SimpleCov may cause the patch to break. Currently known to work with SimpleCov version 0.11.2.
 
 ## Similar Projects
 
@@ -77,7 +77,7 @@ Currently, running the same build multiple times causes the CodeCoverage numbers
 
 ## Credits
 
-CodeClimate CircelCI Coverage was written by (Robin Dunlop)[https://github.com/rdunlop), based extensively on:
+CodeClimate CircelCI Coverage was written by (Robin Dunlop)[https://github.com/rdunlop], based extensively on:
 
 - https://github.com/codeclimate/ruby-test-reporter/issues/10
 - https://gist.github.com/evanwhalen/f74879e0549b67eb17bb
