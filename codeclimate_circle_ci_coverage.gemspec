@@ -20,9 +20,9 @@ Gem::Specification.new do |s|
   s.homepage =
     'http://rubygems.org/gems/codeclimate_circle_ci_coverage'
   s.license = 'MIT'
-  s.add_runtime_dependency 'codeclimate-test-reporter', '~> 0'
-  s.add_runtime_dependency 'simplecov', '~> 0'
+  s.add_runtime_dependency 'codeclimate-test-reporter', '~> 0.5'
+  s.add_runtime_dependency 'simplecov', '~> 0.11'
 
-  s.add_development_dependency 'rubocop', '~> 0'
-  s.add_development_dependency 'rspec', '~> 3.2'
+  s.add_development_dependency 'rubocop', '~> 0.38'
+  s.add_development_dependency 'rspec', '~> 3.4'
 end
