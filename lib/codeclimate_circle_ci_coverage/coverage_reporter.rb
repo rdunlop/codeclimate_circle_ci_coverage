@@ -79,14 +79,7 @@ class CoverageReporter
       resultset = JSON.load(File.read(file))
       resultset.each do |_command_name, data|
         result = SimpleCov::Result.from_hash(['command', i].join => data)
-
-        puts "Resetting result #{i} created_at from #{result.created_at} to #{Time.now}"
-        # It appears that sometimes the nodes provided by CircleCI have
-        # clocks which are not accurate/synchronized
-        # So we always set the created_at to Time.now so that the ResultMerger
-        # doesn't discard any results
-        result.created_at = Time.now
-
+        check_and_fix_result_time(result)
         SimpleCov::ResultMerger.store_result(result)
       end
     end
@@ -94,6 +87,18 @@ class CoverageReporter
     merged_result = SimpleCov::ResultMerger.merged_result
     merged_result.command_name = 'RSpec'
     merged_result
+  end
+
+  def check_and_fix_result_time(result)
+    if Time.now - result.created_at >= SimpleCov.merge_timeout
+      puts "result #{i} has a created_at from #{result.created_at} (current time #{Time.now})"
+      puts "This will prevent coverage from being combined. Please check your tests for Stub-Time-related issues"
+      put "Setting result created_at to current time to avoid this issue"
+      # If the result is timestamped old, it is ignored by SimpleCov
+      # So we always set the created_at to Time.now so that the ResultMerger
+      # doesn't discard any results
+      result.created_at = Time.now
+    end
   end
 
   def output_result_html(merged_result)
