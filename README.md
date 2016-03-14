@@ -8,7 +8,10 @@
 
 Unfortunately, CodeClimate [only supports a single payload of coverage data](https://docs.codeclimate.com/docs/setting-up-test-coverage#important-fyis) and thus cannot be integrated with CircleCI parallel-test execution without some additional work.
 
-This gem is that additional work.
+This gem does that "additional work" by performing the following:
+- After all of the CI nodes are complete, it copies the SimpleCov file from each node of CI onto the first node.
+- It then uses SimpleCov to merge the results together into a single result file
+- It then provides that file to `ruby-test-reporter` as a single payload
 
 ## Installation
 
