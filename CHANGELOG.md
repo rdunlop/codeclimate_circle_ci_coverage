@@ -1,4 +1,7 @@
-# 0.1.1 / Unreleased
+# 0.1.2 / Unreleased
+# 0.1.1 / 2016-04-01
+
+* [BUGFIX] Add missed version.rb to the gemspec
 
 # 0.1.0 / 2016-04-01
 
