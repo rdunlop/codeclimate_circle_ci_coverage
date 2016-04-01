@@ -29,7 +29,12 @@ class CoverageReporter
 
   def run
     # Only submit coverage to codeclimate on target branch
-    return if current_branch != target_branch
+    if current_branch != target_branch
+      puts "Current branch #{current_branch} is not the target branch #{target_branch}"
+      puts "No Coverage will be reported"
+      return
+    end
+
     # Only run on node0
     return unless current_node.zero?
 
@@ -113,8 +118,8 @@ class CoverageReporter
     codeclimate_formatter.format(merged_result)
   end
 
-  # Internal: Debug function, in use to try to determine why codeclimate
-  # is marking some lines of comments as "relevant" lines.
+  # Internal: Debug function, in use to log the exact file which is sent to codeclimate
+  # for use when troubleshooting.
   def store_code_climate_payload(merged_result)
     ENV["CODECLIMATE_TO_FILE"] = "true"
     codeclimate_formatter = CodeClimate::TestReporter::Formatter.new

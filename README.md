@@ -1,6 +1,8 @@
 # CodeClimate CircleCI Coverage
 
 [![Code Climate](https://codeclimate.com/github/rdunlop/codeclimate_circle_ci_coverage.png)](https://codeclimate.com/github/rdunlop/codeclimate_circle_ci_coverage)
+[![Gem](https://img.shields.io/gem/v/codeclimate_circle_ci_coverage.svg)](https://rubygems.org/gems/codeclimate_circle_ci_coverage)
+[![Gem](https://img.shields.io/gem/dt/codeclimate_circle_ci_coverage.svg)](https://rubygems.org/gems/codeclimate_circle_ci_coverage)
 
 [CircleCI](https://circleci.com) provides a great CI environment, and allows your test suite to be run in multiple containers in parallel.
 
@@ -11,7 +13,7 @@ Unfortunately, CodeClimate [only supports a single payload of coverage data](htt
 This gem does that "additional work" by performing the following:
 - After all of the CI nodes are complete, it copies the SimpleCov file from each node of CI onto the first node.
 - It then uses SimpleCov to merge the results together into a single result file
-- It then provides that file to `ruby-test-reporter` as a single payload
+- It then provides that file to `codeclimate-test-reporter` as a single payload
 
 ## Installation
 
@@ -54,9 +56,19 @@ You can find your `CODECLIMATE_REPO_TOKEN` when logged into CodeClimate:
 
 CircleCI will now aggregate together all of your individual coverage metrics into a single file, and then upload that file to CodeClimate.
 
-Once your test suite has been run on the `master` branch, there will be a "Test Coverage" link appear in your CodeClimate feed, as well as on the Sidebar.
+Once your test suite has been run on the configured branch (`master` by default), there will be a "Test Coverage" link appear in your CodeClimate feed, as well as on the Sidebar.
 
-**Note** CodeClimate will **only** report coverage metrics on the default branch. Thus, running this on a feature branch will not cause coverage numbers to be reported.
+**Note** CodeClimate will **only** report coverage metrics on the configured branch. Thus, running this on a feature branch will not cause coverage numbers to be reported.  This is a limitation of the Code Climate Coverage reporting.
+
+## Running Coverage Locally
+
+If you want to run specs locally and see the coverage, you can do so by setting the `CI` environment variable before executing your tests.
+
+For example, if you are running rspec:
+
+```sh
+CI=true bundle exec rspec spec
+```
 
 ## Configuration
 
@@ -70,7 +82,7 @@ test:
 
 ## Known Issues
 
-There is [a bug](https://github.com/colszowka/simplecov/pull/441) in SimpleCov which prevents results from merging cleanly. A patch has been applied to resolve this, but new versions of SimpleCov may cause the patch to break. Currently known to work with SimpleCov version 0.11.2.
+There is [a bug](https://github.com/colszowka/simplecov/pull/441) in SimpleCov which prevents results from merging cleanly. A patch has been [applied to this codebase](https://github.com/rdunlop/codeclimate_circle_ci_coverage/blob/master/lib/codeclimate_circle_ci_coverage/patch_simplecov.rb) to resolve this, but new versions of SimpleCov may cause the patch to break. Currently known to work with SimpleCov version 0.11.2.
 
 ## Similar Projects
 
