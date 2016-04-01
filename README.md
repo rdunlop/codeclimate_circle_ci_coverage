@@ -17,19 +17,22 @@ This gem does that "additional work" by performing the following:
 
 ## Installation
 
+### Adding the Gem to your system
 Add this line to your application's Gemfile:
 
 ```bash
 gem 'codeclimate_circle_ci_coverage', group: 'test'
 ```
 
-And then add the following to your circle.yml:
+And then execute:
 
-```yml
-test:
-  post:
-    - bundle exec report_coverage
-```
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install codeclimate_circle_ci_coverage
+
+### Collecting Metrics during your CircleCI Test Run
 
 Add add the following to the top of your spec_helper.rb:
 ```ruby
@@ -41,6 +44,16 @@ if ENV['CI']
   end
 end
 
+```
+
+### Invoking the Gem after your CircleCI Test Run
+
+Add the following to your circle.yml:
+
+```yml
+test:
+  post:
+    - bundle exec report_coverage
 ```
 
 ## CircleCI Configuration
@@ -96,4 +109,13 @@ CodeClimate CircelCI Coverage was written by [Robin Dunlop](https://github.com/r
 
 - https://github.com/codeclimate/ruby-test-reporter/issues/10
 - https://gist.github.com/evanwhalen/f74879e0549b67eb17bb
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/rdunlop/codeclimate_circle_ci_coverage.
+
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 

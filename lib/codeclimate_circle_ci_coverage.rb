@@ -1,2 +1,3 @@
+require "codeclimate_circle_ci_coverage/version"
 require "codeclimate_circle_ci_coverage/patch_simplecov"
 require "codeclimate_circle_ci_coverage/coverage_reporter"
