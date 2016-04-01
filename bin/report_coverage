@@ -14,4 +14,8 @@ OptionParser.new do |opts|
 end.parse!
 
 reporter = CoverageReporter.new(options[:branch])
-reporter.run
+if reporter.run
+  exit(0)
+else
+  abort "Error running report_coverage"
+end

@@ -27,16 +27,18 @@ class CoverageReporter
     ENV['CIRCLE_NODE_INDEX'].to_i
   end
 
+  # Returns false if unsuccessful
+  # Returns true if successful
   def run
     # Only submit coverage to codeclimate on target branch
     if current_branch != target_branch
       puts "Current branch #{current_branch} is not the target branch #{target_branch}"
       puts "No Coverage will be reported"
-      return
+      return false
     end
 
     # Only run on node0
-    return unless current_node.zero?
+    return false unless current_node.zero?
 
     all_coverage_dir = File.join("all_coverage")
     download_files(all_coverage_dir)
@@ -46,6 +48,7 @@ class CoverageReporter
     output_result_html(merged_result)
     upload_result_file(merged_result)
     store_code_climate_payload(merged_result)
+    true
   end
 
   # Public: Download the .resultset.json files from each of the nodes
