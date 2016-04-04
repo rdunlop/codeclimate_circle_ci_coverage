@@ -1,4 +1,8 @@
-# 0.1.2 / Unreleased
+# 0.1.3 / Unreleased
+# 0.1.2 / 2016-04-04
+
+* [BUGFIX] Return Success even on non-default branch
+
 # 0.1.1 / 2016-04-01
 
 * [BUGFIX] Add missed version.rb to the gemspec
