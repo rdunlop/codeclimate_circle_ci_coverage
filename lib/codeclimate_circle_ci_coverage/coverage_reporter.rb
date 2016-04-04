@@ -34,11 +34,11 @@ class CoverageReporter
     if current_branch != target_branch
       puts "Current branch #{current_branch} is not the target branch #{target_branch}"
       puts "No Coverage will be reported"
-      return false
+      return true
     end
 
     # Only run on node0
-    return false unless current_node.zero?
+    return true unless current_node.zero?
 
     all_coverage_dir = File.join("all_coverage")
     download_files(all_coverage_dir)
