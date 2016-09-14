@@ -60,10 +60,10 @@ test:
 
 In order for CircleCI to send coverage information to CodeClimate, it must have your CodeClimate access token.
 
-In CircleCI, add the `CODECLIMATE_REPO_TOKEN` to your Environment Variables.
-
-You can find your `CODECLIMATE_REPO_TOKEN` when logged into CodeClimate:
--> "Settings" -> "Test Coverage" -> "Ruby"
+1. Find your `CODECLIMATE_REPO_TOKEN` by going to your project in CodeClimate. Then look under:
+   "Settings" -> "Test Coverage" -> "Ruby"
+1. In CircleCI, go to your Project Settings, click on "Environment Variables", and then "Add Variable". Enter
+   `CODECLIMATE_REPO_TOKEN` as the name, and enter the value you found in the previous step.
 
 ## Usage
 
