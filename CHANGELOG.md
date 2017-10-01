@@ -1,4 +1,10 @@
-# 0.1.3 / Unreleased
+# 0.2.1 / Unreleased
+
+# 0.2.0 / 2017-09-30
+
+* [FEATURE] Add support + instructions for Circle CI 2.0
+* [FEATURE] Loosen codeclimate-test-reporter version dependency to allow for 1.x series
+
 # 0.1.2 / 2016-04-04
 
 * [BUGFIX] Return Success even on non-default branch
