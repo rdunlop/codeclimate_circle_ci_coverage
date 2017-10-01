@@ -11,7 +11,7 @@
 Unfortunately, CodeClimate [only supports a single payload of coverage data](https://docs.codeclimate.com/docs/setting-up-test-coverage#important-fyis) and thus cannot be integrated with CircleCI parallel-test execution without some additional work.
 
 This gem does that "additional work" by performing the following:
-- After all of the CI nodes are complete, it copies the SimpleCov file from each node of CI onto the first node.
+- After all of the CI nodes are complete, it gathers the SimpleCov file from each node of CI onto the first node.
 - It then uses SimpleCov to merge the results together into a single result file
 - It then provides that file to `codeclimate-test-reporter` as a single payload
 
@@ -48,6 +48,8 @@ end
 
 ### Invoking the Gem after your CircleCI Test Run
 
+#### Circle CI 1.0
+
 Add the following to your circle.yml:
 
 ```yml
@@ -55,6 +57,38 @@ test:
   post:
     - bundle exec report_coverage
 ```
+
+#### Circle CI 2.0
+
+In order to pass the test results from each node, on Circle CI 2.0, more steps must be done:
+
+1) Create a Circle CI API Key
+
+- From the Project Settings -> API Permissions
+- "Create Token"
+- Set an "Environment Variable" with "CIRCLE_TOKEN" with this token.
+
+2) Make each node upload the coverage file to artifacts for use.
+
+- Add to `.circleci/config.yml` the following
+```
+- store_artifacts:
+    path: coverage/.resultset.json
+    prefix: coverage
+```
+
+The coverage_reporter.rb will use the Circle CI API in order to download the .resultset.json from node to combine them.
+
+Add the following to your config.yml
+
+We use a `deploy` stage so that it is only run once all of the (possibly parallel) executors have run.
+
+```yml
+- deploy:
+   name: Merge and copy coverage data
+   command: bundle exec report_coverage
+```
+
 
 ## CircleCI Configuration
 
@@ -88,9 +122,7 @@ CI=true bundle exec rspec spec
 If your default branch is not `master`, you'll have to tell `report_coverage` the the branch name. Coverage will be reported whenever specs are run for this branch. (by default, the branch is `master`)
 
 ```yml
-test:
-  post:
-    - bundle exec report_coverage --branch develop
+bundle exec report_coverage --branch develop
 ```
 
 ## Known Issues
@@ -109,6 +141,7 @@ CodeClimate CircelCI Coverage was written by [Robin Dunlop](https://github.com/r
 
 - https://github.com/codeclimate/ruby-test-reporter/issues/10
 - https://gist.github.com/evanwhalen/f74879e0549b67eb17bb
+- https://gist.github.com/leemachin/1aeb217d989f3981cc3f06d88938bd33 by way of https://discuss.circleci.com/t/code-coverage-and-parallel-builds/12330/2
 
 ## Contributing
 

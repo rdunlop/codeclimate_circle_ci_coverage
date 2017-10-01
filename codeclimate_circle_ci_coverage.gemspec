@@ -15,6 +15,8 @@ Gem::Specification.new do |s|
     'lib/codeclimate_circle_ci_coverage.rb',
     'lib/codeclimate_circle_ci_coverage/coverage_reporter.rb',
     'lib/codeclimate_circle_ci_coverage/patch_simplecov.rb',
+    'lib/codeclimate_circle_ci_coverage/circle_ci_1.rb',
+    'lib/codeclimate_circle_ci_coverage/circle_ci_2.rb',
     'lib/codeclimate_circle_ci_coverage/version.rb',
   ]
   s.test_files = [
@@ -22,9 +24,6 @@ Gem::Specification.new do |s|
     'spec/spec_helper.rb',
   ]
   s.executables << 'report_coverage'
-  s.homepage =
-    'http://rubygems.org/gems/codeclimate_circle_ci_coverage'
-  s.license = 'MIT'
   s.add_runtime_dependency 'codeclimate-test-reporter', '~> 0.5'
   s.add_runtime_dependency 'simplecov', '~> 0.11'
 

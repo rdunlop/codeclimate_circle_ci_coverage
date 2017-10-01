@@ -8,7 +8,6 @@
 # - Why aren't artifacts stored in the $CIRCLE_ARTIFACTS directory when doing SSH login?
 require "codeclimate-test-reporter"
 require "simplecov"
-require 'fileutils'
 
 # This packages up the code coverage metrics from multiple servers and
 # sends them to CodeClimate via the CodeClimate Test Reporter Gem
@@ -40,51 +39,28 @@ class CoverageReporter
     # Only run on node0
     return true unless current_node.zero?
 
-    all_coverage_dir = File.join("all_coverage")
-    download_files(all_coverage_dir)
-    final_coverage_dir = File.join("combined_coverage")
+    json_result_files = download_files
+    merged_result = merge_files(json_result_files)
 
-    merged_result = load_and_merge_files(all_coverage_dir, final_coverage_dir)
     output_result_html(merged_result)
     upload_result_file(merged_result)
     store_code_climate_payload(merged_result)
     true
   end
 
-  # Public: Download the .resultset.json files from each of the nodes
-  # and store them in the `target_directory`
-  #
-  # They will be numbered 0.resultset.json, 1.resultset.json, etc.
-  def download_files(target_directory)
-    node_total = ENV['CIRCLE_NODE_TOTAL'].to_i
-
-    # Create directory if it doesn't exist
-    FileUtils.mkdir_p target_directory
-
-    if node_total > 0
-      # Copy coverage results from all nodes to circle artifacts directory
-      0.upto(node_total - 1) do |i|
-        node = "node#{i}"
-        # Modified because circleCI doesn't appear to deal with artifacts in the expected manner
-        node_project_dir = `ssh #{node} 'printf $CIRCLE_PROJECT_REPONAME'`
-        from = File.join("~/", node_project_dir, 'coverage', ".resultset.json")
-        to = File.join(target_directory, "#{i}.resultset.json")
-        command = "scp #{node}:#{from} #{to}"
-
-        puts "running command: #{command}"
-        `#{command}`
-      end
+  def download_files
+    if ENV["CIRCLE_JOB"].nil?
+      CircleCi1.new.download_files
+    else
+      CircleCi2.new.download_files
     end
   end
 
-  def load_and_merge_files(source_directory, target_directory)
-    FileUtils.mkdir_p target_directory
-    SimpleCov.coverage_dir(target_directory)
+  def merge_files(json_files)
+    SimpleCov.coverage_dir('/tmp/coverage')
 
     # Merge coverage results from all nodes
-    files = Dir.glob(File.join(source_directory, "*.resultset.json"))
-    files.each_with_index do |file, i|
-      resultset = JSON.load(File.read(file))
+    json_files.each_with_index do |resultset, i|
       resultset.each do |_command_name, data|
         result = SimpleCov::Result.from_hash(['command', i].join => data)
         check_and_fix_result_time(result)
