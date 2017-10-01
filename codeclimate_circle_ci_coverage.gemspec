@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
     'spec/spec_helper.rb',
   ]
   s.executables << 'report_coverage'
-  s.add_runtime_dependency 'codeclimate-test-reporter', '~> 0.5'
+  s.add_runtime_dependency 'codeclimate-test-reporter', '< 2'
   s.add_runtime_dependency 'simplecov', '~> 0.11'
 
   s.add_development_dependency "bundler", "~> 1.11"
