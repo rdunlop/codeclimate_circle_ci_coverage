@@ -94,7 +94,7 @@ class CoverageReporter
   def upload_result_file(merged_result)
     # Post merged coverage result to codeclimate
     codeclimate_formatter = CodeClimate::TestReporter::Formatter.new
-    codeclimate_formatter.format(merged_result)
+    codeclimate_formatter.format(merged_result.to_hash)
   end
 
   # Internal: Debug function, in use to log the exact file which is sent to codeclimate
@@ -102,7 +102,7 @@ class CoverageReporter
   def store_code_climate_payload(merged_result)
     ENV["CODECLIMATE_TO_FILE"] = "true"
     codeclimate_formatter = CodeClimate::TestReporter::Formatter.new
-    codeclimate_formatter.format(merged_result)
+    codeclimate_formatter.format(merged_result.to_hash)
   ensure
     ENV["CODECLIMATE_TO_FILE"] = nil
   end
