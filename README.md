@@ -65,7 +65,7 @@ In order to pass the test results from each node, on Circle CI 2.0, more steps m
 1) Create a Circle CI API Key
 
 - From the Project Settings -> API Permissions
-- "Create Token"
+- "Create Token", scope: 'view-builds'
 - Set an "Environment Variable" with "CIRCLE_TOKEN" with this token.
 
 2) Make each node upload the coverage file to artifacts for use.
@@ -74,7 +74,7 @@ In order to pass the test results from each node, on Circle CI 2.0, more steps m
 ```
 - store_artifacts:
     path: coverage/.resultset.json
-    prefix: coverage
+    prefix: coverage # must be called coverage to be picked up by the report_coverage script
 ```
 
 The coverage_reporter.rb will use the Circle CI API in order to download the .resultset.json from node to combine them.
@@ -85,8 +85,8 @@ We use a `deploy` stage so that it is only run once all of the (possibly paralle
 
 ```yml
 - deploy:
-   name: Merge and copy coverage data
-   command: bundle exec report_coverage
+    name: Merge and copy coverage data
+    command: bundle exec report_coverage
 ```
 
 
