@@ -25,7 +25,7 @@ class CircleCi1
         to = File.join(target_directory, "#{i}.resultset.json")
         command = "scp #{node}:#{from} #{to}"
 
-        puts "running command: #{command}"
+        puts "Downloading Result from CI Node: #{command}"
         `#{command}`
       end
     end

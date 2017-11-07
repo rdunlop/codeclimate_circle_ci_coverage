@@ -45,6 +45,7 @@ class CoverageReporter
     output_result_html(merged_result)
     upload_result_file(merged_result)
     store_code_climate_payload(merged_result)
+    puts "Reporting Complete."
     true
   end
 
@@ -63,7 +64,7 @@ class CoverageReporter
     json_files.each_with_index do |resultset, i|
       resultset.each do |_command_name, data|
         result = SimpleCov::Result.from_hash(['command', i].join => data)
-        check_and_fix_result_time(result)
+        check_and_fix_result_time(result, i)
         SimpleCov::ResultMerger.store_result(result)
       end
     end
@@ -73,11 +74,11 @@ class CoverageReporter
     merged_result
   end
 
-  def check_and_fix_result_time(result)
+  def check_and_fix_result_time(result, index)
     if Time.now - result.created_at >= SimpleCov.merge_timeout
-      puts "result #{i} has a created_at from #{result.created_at} (current time #{Time.now})"
+      puts "result #{index} has a created_at from #{result.created_at} (current time #{Time.now})"
       puts "This will prevent coverage from being combined. Please check your tests for Stub-Time-related issues"
-      put "Setting result created_at to current time to avoid this issue"
+      puts "Setting result created_at to current time to avoid this issue"
       # If the result is timestamped old, it is ignored by SimpleCov
       # So we always set the created_at to Time.now so that the ResultMerger
       # doesn't discard any results

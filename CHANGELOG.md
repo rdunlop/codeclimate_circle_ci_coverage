@@ -1,4 +1,8 @@
-# 0.2.1 / Unreleased
+# 0.2.2 / Unreleased
+
+# 0.2.1 / 2017-11-07
+
+# [BUGFIX] Error when checking for out-of-date resultsets
 
 # 0.2.0 / 2017-09-30
 
