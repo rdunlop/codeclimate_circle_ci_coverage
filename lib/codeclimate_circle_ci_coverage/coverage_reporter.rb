@@ -95,7 +95,8 @@ class CoverageReporter
   def upload_result_file(merged_result)
     # Post merged coverage result to codeclimate
     codeclimate_formatter = CodeClimate::TestReporter::Formatter.new
-    codeclimate_formatter.format(merged_result.to_hash)
+    formatted_results = codeclimate_formatter.format(merged_result.to_hash)
+    CodeClimate::TestReporter::PostResults.new(formatted_results).post
   end
 
   # Internal: Debug function, in use to log the exact file which is sent to codeclimate
