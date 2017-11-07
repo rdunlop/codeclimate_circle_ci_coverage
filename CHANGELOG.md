@@ -2,8 +2,8 @@
 
 # 0.2.1 / 2017-11-07
 
-# [BUGFIX] Error when checking for out-of-date resultsets
-# [BUGFIX] Newer versions of codeclimate-test-reporter do not automatically
+* [BUGFIX] Error when checking for out-of-date resultsets
+* [BUGFIX] Newer versions of codeclimate-test-reporter do not automatically
 publish results.
 
 # 0.2.0 / 2017-09-30
