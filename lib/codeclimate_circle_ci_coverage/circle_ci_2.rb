@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'open-uri'
 require 'json'
 
 class CircleCi2
-  ARTIFACT_PREFIX = "coverage".freeze
+  ARTIFACT_PREFIX = "coverage"
 
   def download_files
     if ENV["CIRCLE_TOKEN"].nil?

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # from https://github.com/codeclimate/ruby-test-reporter/issues/10
 # https://gist.github.com/evanwhalen/f74879e0549b67eb17bb
 
