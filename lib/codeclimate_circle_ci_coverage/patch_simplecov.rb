@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "simplecov"
 # Without this change, merging results erroneously marks blank comment lines as
 # uncovered.

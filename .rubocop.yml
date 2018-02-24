@@ -1,1 +1,8 @@
+AllCops:
+  DisplayCopNames: true
+  TargetRubyVersion: 2.4
+
 inherit_from: .rubocop_todo.yml
+
+Style/Documentation:
+  Enabled: false
