@@ -32,7 +32,7 @@ class CircleCi1
 
     # Load coverage results from all nodes
     files = Dir.glob(File.join(target_directory, "*.resultset.json"))
-    files.map do |file, i|
+    files.map do |file, _i|
       JSON.load(File.read(file))
     end
   end

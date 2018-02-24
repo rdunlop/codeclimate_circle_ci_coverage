@@ -9,9 +9,9 @@ describe CoverageReporter do
         {
           "RSpec" => {
             "coverage" => {
-              "#{SimpleCov.root}/spec/fixtures/fake_project/fake_project.rb" => [5,3,nil,0]
+              "#{SimpleCov.root}/spec/fixtures/fake_project/fake_project.rb" => [5, 3, nil, 0]
             },
-            "timestamp" => Time.now.to_i,
+            "timestamp" => Time.now.to_i
           }
         }
       ]

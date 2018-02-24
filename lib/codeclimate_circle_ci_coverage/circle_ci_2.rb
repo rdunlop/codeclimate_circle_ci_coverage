@@ -2,7 +2,7 @@ require 'open-uri'
 require 'json'
 
 class CircleCi2
-  ARTIFACT_PREFIX = "coverage"
+  ARTIFACT_PREFIX = "coverage".freeze
 
   def download_files
     if ENV["CIRCLE_TOKEN"].nil?
@@ -10,13 +10,16 @@ class CircleCi2
       puts "Please create that, and store the key as CIRCLE_TOKEN"
       return []
     end
-
+    # rubocop:disable Metrics/LineLength
     api_url = "https://circleci.com/api/v1.1/project/github/#{ENV['CIRCLE_PROJECT_USERNAME']}/#{ENV['CIRCLE_PROJECT_REPONAME']}/#{ENV['CIRCLE_BUILD_NUM']}/artifacts?circle-token=#{ENV['CIRCLE_TOKEN']}"
+    # rubocop:enable Metrics/LineLength
     artifacts = open(api_url)
 
-    JSON.load(artifacts).select do |artifact|
+    paths = JSON.load(artifacts).select do |artifact|
       artifact['path'] == "home/circleci/project/#{ARTIFACT_PREFIX}/.resultset.json"
-    end.map do |artifact|
+    end
+
+    paths.map do |artifact|
       JSON.load(open("#{artifact['url']}?circle-token=#{ENV['CIRCLE_TOKEN']}"))
     end
   end
