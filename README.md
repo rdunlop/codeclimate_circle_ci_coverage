@@ -65,7 +65,7 @@ In order to pass the test results from each node, on Circle CI 2.0, more steps m
 1) Create a Circle CI API Key
 
 - From the Project Settings -> API Permissions
-- "Create Token", scope: 'view-builds'
+- "Create Token", scope: 'view-builds' ("Build Artifacts")
 - Set an "Environment Variable" with "CIRCLE_TOKEN" with this token.
 
 2) Make each node upload the coverage file to artifacts for use.
