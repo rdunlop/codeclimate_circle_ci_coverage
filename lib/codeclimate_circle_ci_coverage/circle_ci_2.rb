@@ -8,7 +8,7 @@ class CircleCi2
 
   def download_files
     if ENV["CIRCLE_TOKEN"].nil?
-      puts "You must create a Circle CI API token to use this on Circle CI 2.0"
+      puts "You must create a Circle CI Artifacts-API token to use this on Circle CI 2.0"
       puts "Please create that, and store the key as CIRCLE_TOKEN"
       return []
     end
@@ -17,12 +17,24 @@ class CircleCi2
     # rubocop:enable Metrics/LineLength
     artifacts = open(api_url)
 
-    paths = JSON.load(artifacts).select do |artifact|
-      artifact['path'] == "home/circleci/project/#{ARTIFACT_PREFIX}/.resultset.json"
+    paths = matching_urls(JSON.load(artifacts))
+
+    if paths.none?
+      puts "No Results Found. Did you store the artifacts with 'store_artifacts'?"
+      puts "did you use 'prefix: coverage'?"
+      return []
     end
 
-    paths.map do |artifact|
-      JSON.load(open("#{artifact['url']}?circle-token=#{ENV['CIRCLE_TOKEN']}"))
+    paths.map do |path|
+      JSON.load(open("#{path}?circle-token=#{ENV['CIRCLE_TOKEN']}"))
+    end
+  end
+
+  def matching_urls(json)
+    json.select do |artifact|
+      artifact['path'].match("#{ARTIFACT_PREFIX}/.resultset.json")
+    end.map do |artifact|
+      artifact['url']
     end
   end
 end
